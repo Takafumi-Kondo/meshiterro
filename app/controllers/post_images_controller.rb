@@ -23,6 +23,12 @@ class PostImagesController < ApplicationController
 		@post_image = PostImage.find(params[:id])
 		@post_comment = PostComment.new
 	end
+#resourcesルーティングのdestroyからきたのを元に探しインスタンス変数へ
+	def destroy
+		@post_image = PostImage.find(params[:id])
+		@post_image.destroy
+		redirect_to post_images_path
+	end
 
 #投稿データのストロングパラメータ
 private
