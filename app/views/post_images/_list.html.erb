@@ -1,0 +1,51 @@
+<!-- 部分テンプレート　同じ記述があるのでpost_images/index、users/show まとめ-->
+<section class="sct-color-1 slice">
+  <div class="container-fluid masonry-container">
+    <div class="row">
+      <div class="col-md-8 col-sm-offset-2">
+        <div class="masonry-wrapper-cols">
+          <div class="masonry-gutter"></div>
+<!-- コントローラから渡されたpost_images変数に入ってるハッシュから１つずつ出してpost_imageへ///@post_images => post_imagesへ変更。インスタンスは同じインスタンスを持つアクションからしか呼べないため -->
+         <% post_images.each do |post_image| %>
+            <div class="masonry-block">
+              <div class="block block-image v1">
+                <div class="block-image">
+                  <div class="view view-first">
+<!-- post_image_path(post_image.id)のリンク先URL指定 -->
+                    <%= link_to post_image_path(post_image.id) do %>
+<!-- このタグはrefileで用意されてるimgタグ作成するヘルパー。post_imageモデル中のimage_idから保存された画像のimgタグ生成 aタグに囲われている-->
+                      <%= attachment_image_tag post_image, :image %>
+                    <% end %>
+                  </div>
+                </div>
+                <div class="block-content">
+<!-- post_imageモデルに紐付いたuserモデルが画像を保持しているので post_image.user付ける-->
+                  <%= attachment_image_tag post_image.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg", class: "img-circle pull-left profile-thumb" %>
+                  <h3 class="block-title">
+
+                   <%= link_to post_image_path(post_image.id) do %>
+                               <i class="fa fa-map-marker"></i><%= post_image.shop_name %>
+                   <% end %>
+                  </h3>
+<!-- post_imageモデルに定義されてるcaptionカラム表示 -->
+                  <p><%= post_image.caption %></p>
+<!-- post_imageモデルに定義されているuser_idに関連付いたuserモデルのnameカラムを表示 -->
+                  <ul class="inline-meta">
+                    <li>By
+                      <%= post_image.user.name %>
+                    </li>
+                    <li>
+                      <%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <!-- ページャ。同じく@post_images => post_images ローカル変数へ変更 -->
+          <%= paginate post_images, class: "paginate" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
