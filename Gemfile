@@ -65,3 +65,5 @@ gem 'devise'
 #refile(アップロード)とrefile-mini_magick(画像のリサイズを簡単に)Gem追加
 gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem "refile-mini_magick"
+#ページング実装Gem
+gem 'kaminari','~> 1.1.1'

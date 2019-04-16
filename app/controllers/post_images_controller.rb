@@ -7,12 +7,16 @@ class PostImagesController < ApplicationController
 	def create
 		@post_image = PostImage.new(post_image_params)
 		@post_image.user_id = current_user.id
-		@post_image.save
-		redirect_to post_images_path
+		#バリデーション追加したのでif文に変更
+		if @post_image.save
+			redirect_to post_images_path
+		else
+			render :new#redirect_toはルーティングから処理
+		end
 	end
-
+#PostImage.allから変更。1ページ分の決められた数だけ取得(pageメソッドはkaminariGem)
 	def index
-		@post_images = PostImage.all
+		@post_images = PostImage.page(params[:page]).reverse_order
 	end
 
 	def show
