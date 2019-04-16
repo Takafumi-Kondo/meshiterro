@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
 #投稿コメは投稿画像の子要素になるので。
   resources :post_images, only: [:new, :create, :index, :show] do
+  	resource :favorites, only: [:create, :destroy]
   	#単数だとそのコントローラのidがリクにない。コメント詳細は作らないのでidは不要
   	resource :post_comments, only: [:create, :destroy]
   end

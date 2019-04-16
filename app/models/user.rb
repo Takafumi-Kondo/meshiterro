@@ -9,4 +9,5 @@ class User < ApplicationRecord
   has_many :post_images, dependent: :destroy
 #dependent: :destroyで１削除でN要素も削除される
   has_many :post_comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 end
