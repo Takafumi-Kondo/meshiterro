@@ -11,6 +11,6 @@ Rails.application.routes.draw do
   	#単数だとそのコントローラのidがリクにない。コメント詳細は作らないのでidは不要
   	resource :post_comments, only: [:create, :destroy]
   end
-#usersコントローラはshowのみなのでonly
-  resources :users, only: [:show]
+#userページ。余計な処理しないようonly
+  resources :users, only: [:show, :edit, :update]
 end

@@ -1,7 +1,11 @@
 <!-- ユーザプロフィール -->
 <div class="profile-container">
     <h3 class="profile-name"><%= @user.name %></h3>
-    <%= image_tag('sample-author1.jpg', class: "img-circle pull-left profile-thumb", style: "width: 100px; height: 100px; margin-top: 20px;") %>
+<!--@userには画像が入ってるインスタンス。profile_image_idはrefile仕様上id無し。fallbackはデータないときに表示するもの  -->
+    <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg" %>
+        <% if @user.id == current_user.id %>
+        <p><%= link_to "プロフィール編集", edit_user_path(@user), class: "pull-right" %></p>
+    <% end %>
 </div>
 <!-- 投稿した画像一覧表示させるためpost_images/index.html.erbの中身をコピー -->
 <section class="sct-color-1 slice">

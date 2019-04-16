@@ -10,4 +10,6 @@ class User < ApplicationRecord
 #dependent: :destroyで１削除でN要素も削除される
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+#プロフ画像投稿するときRefile使用するので
+  attachment :profile_image
 end
