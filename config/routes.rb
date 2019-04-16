@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  #get 'users/show' ここはdevise_forで設定してるので削除
 #自動でルーティング追加されてる
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -10,4 +11,6 @@ Rails.application.routes.draw do
   	#単数だとそのコントローラのidがリクにない。コメント詳細は作らないのでidは不要
   	resource :post_comments, only: [:create, :destroy]
   end
+#usersコントローラはshowのみなのでonly
+  resources :users, only: [:show]
 end

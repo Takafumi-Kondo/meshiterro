@@ -1,0 +1,53 @@
+<!-- ユーザプロフィール -->
+<div class="profile-container">
+    <h3 class="profile-name"><%= @user.name %></h3>
+    <%= image_tag('sample-author1.jpg', class: "img-circle pull-left profile-thumb", style: "width: 100px; height: 100px; margin-top: 20px;") %>
+</div>
+<!-- 投稿した画像一覧表示させるためpost_images/index.html.erbの中身をコピー -->
+<section class="sct-color-1 slice">
+  <div class="container-fluid masonry-container">
+    <div class="row">
+      <div class="col-md-8 col-sm-offset-2">
+        <div class="masonry-wrapper-cols">
+          <div class="masonry-gutter"></div>
+<!-- コントローラから渡されたpost_images変数に入ってるハッシュから１つずつ出してpost_imageへ -->
+         <% @post_images.each do |post_image| %>
+            <div class="masonry-block">
+              <div class="block block-image v1">
+                <div class="block-image">
+                  <div class="view view-first">
+<!-- post_image_path(post_image.id)のリンク先URL指定 -->
+                    <%= link_to post_image_path(post_image.id) do %>
+<!-- このタグはrefileで用意されてるimgタグ作成するヘルパー。post_imageモデル中のimage_idから保存された画像のimgタグ生成 aタグに囲われている-->
+                      <%= attachment_image_tag post_image, :image %>
+                    <% end %>
+                  </div>
+                </div>
+                <div class="block-content">
+                  <%= image_tag('sample-author1.jpg', class: "img-circle pull-left profile-thumb") %>
+                  <h3 class="block-title">
+
+         <%= link_to post_image_path(post_image.id) do %>
+                     <i class="fa fa-map-marker"></i><%= post_image.shop_name %>
+         <% end %>
+                  </h3>
+<!-- post_imageモデルに定義されてるcaptionカラム表示 -->
+                  <p><%= post_image.caption %></p>
+<!-- post_imageモデルに定義されているuser_idに関連付いたuserモデルのnameカラムを表示 -->
+                  <ul class="inline-meta">
+                    <li>By
+                      <%= post_image.user.name %>
+                    </li>
+                    <li>
+                      <%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
